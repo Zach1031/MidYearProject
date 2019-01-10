@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
         lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
         transform.eulerAngles = lastMouse;
         lastMouse = Input.mousePosition;
-        //Mouse  camera angle done.  
 
         //Keyboard commands
         float f = 0.0f;
