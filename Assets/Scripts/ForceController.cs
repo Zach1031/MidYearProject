@@ -12,7 +12,8 @@ public class ForceController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+
         if (Input.GetKey(KeyCode.E)){
             GetComponent<ConstantForce>().force = new Vector3(0, 0, 100);
         }
