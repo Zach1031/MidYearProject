@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         lastMouse = Input.mousePosition;
 
         //Keyboard commands
-        float f = 0.0f;
+     
         Vector3 p = GetBaseInput();
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -53,22 +53,7 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(p);
        
-        {
-            RaycastHit hit;
-            Ray cannon = new Ray(transform.position, Vector3.down);
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (Physics.Raycast(cannon, out hit, 0) && hit.collider.tag == "cube")
-                {
-                    transform.Translate(100, 100, 100);
 
-                }
-
-            }
-
-
-
-        }
 
     }
 
