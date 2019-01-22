@@ -5,10 +5,10 @@ using UnityEngine;
 public class TeleportController : MonoBehaviour
 {
     public GameObject portal;
-    private Material portal_color;
+    public Material portal_color;
     public GameObject portal_a;
-    private Material portal_a_color;
-    private Material white;
+    public Material portal_a_color;
+    public Material white;
     private float nextTimetoTeleport;
 
     // Start is called before the first frame update
