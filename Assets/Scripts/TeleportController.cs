@@ -5,12 +5,12 @@ using UnityEngine;
 public class TeleportController : MonoBehaviour
 {
     public GameObject portal;
-    public Material portal_color;
+    private Material portal_color;
     public GameObject portal_a;
-    public Material portal_a_color;
-    public Material white;
-    public float cooldown = .001f;
-    private float nextTimetoTeleport = 0f;
+    private Material portal_a_color;
+    private Material white;
+    private float nextTimetoTeleport;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +26,18 @@ public class TeleportController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
             {
-                if (hit.collider.tag != "Not-Portal")
+                if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
                     if (portal != null)
                     {
                         portal.GetComponent<Renderer>().material = white;
+                        
                     }
 
                     portal = hit.collider.gameObject;
-                    hit.collider.GetComponent<Renderer>().material = portal_color;
+                
+                    portal.GetComponent<Renderer>().material = portal_color;
+
                 }
 
 
@@ -42,19 +45,21 @@ public class TeleportController : MonoBehaviour
             }
 
         }
-        else if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(KeyCode.LeftShift))
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
             {
-                if (hit.collider.tag != "Not-Portal")
+                if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
                     if (portal_a!= null)
                     {
                         portal_a.GetComponent<Renderer>().material = white;
+    
                     }
                     portal_a = hit.collider.gameObject;
-                    hit.collider.GetComponent<Renderer>().material = portal_a_color;
+            
+                    portal_a.GetComponent<Renderer>().material = portal_a_color;
                 }
 
             }
@@ -65,16 +70,30 @@ public class TeleportController : MonoBehaviour
         if (collision.gameObject == portal && Time.time >= nextTimetoTeleport)
         {
 
-            nextTimetoTeleport = Time.time + 1f / cooldown;
+            nextTimetoTeleport = Time.time + 1f / 2f;
             transform.position = portal_a.GetComponent<Transform>().position;
 
+            Abyss();
 
         }
         else if (collision.gameObject == portal_a && Time.time >= nextTimetoTeleport)
         {
-            nextTimetoTeleport = Time.time + 1f / cooldown;
+            nextTimetoTeleport = Time.time + 1f / 2f;
             transform.position = portal.GetComponent<Transform>().position;
+
+            Abyss();
         }
     }
-        
+    void Abyss()
+    {
+
+        RaycastHit hit;
+        while(!(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)))
+        {
+            var playerRotation = transform.rotation;
+            playerRotation.y += 1;
+            transform.rotation = playerRotation;
+        }
+    }
+
 }
