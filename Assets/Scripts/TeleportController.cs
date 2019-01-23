@@ -24,7 +24,7 @@ public class TeleportController : MonoBehaviour
         {
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.gameObject.tag != "OOB")
             {
                 if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
@@ -48,7 +48,7 @@ public class TeleportController : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftShift))
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.gameObject.tag != "OOB")
             {
                 if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
@@ -67,7 +67,7 @@ public class TeleportController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == portal && Time.time >= nextTimetoTeleport)
+        if (collision.gameObject == portal && Time.time >= nextTimetoTeleport && portal_a != null)
         {
 
             nextTimetoTeleport = Time.time + 1f / 2f;
@@ -76,7 +76,7 @@ public class TeleportController : MonoBehaviour
             Abyss();
 
         }
-        else if (collision.gameObject == portal_a && Time.time >= nextTimetoTeleport)
+        else if (collision.gameObject == portal_a && Time.time >= nextTimetoTeleport && portal != null)
         {
             nextTimetoTeleport = Time.time + 1f / 2f;
             transform.position = portal.GetComponent<Transform>().position;
@@ -90,9 +90,17 @@ public class TeleportController : MonoBehaviour
         RaycastHit hit;
         while(!(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)))
         {
-            var playerRotation = transform.rotation;
-            playerRotation.y += 1;
-            transform.rotation = playerRotation;
+            while(hit.collider.tag != "OOB")
+            {
+                var playerRotation = transform.rotation;
+                playerRotation.y += 1;
+                transform.rotation = playerRotation;
+            }
+
+            transform.rotation = new Quaternion(transform.rotation.x + 90, transform.rotation.y, transform.rotation.z, 1);
+
+
+
         }
     }
 

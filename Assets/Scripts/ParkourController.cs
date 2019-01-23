@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class ParkourController : MonoBehaviour
 
 
 {
+  
 
     float mainSpeed = 7.5f; //regular speed
     float camSens = 1.0f; //How sensitive it with mouse
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
         lastMouse = Input.mousePosition;
 
         //Keyboard commands
-     
+
         Vector3 p = GetBaseInput();
         totalRun = Mathf.Clamp(totalRun * 0.5f, 1f, 1000f);
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
         Vector3 newPosition = transform.position;
 
         transform.Translate(p);
-       
+
 
 
     }
@@ -55,5 +56,14 @@ public class PlayerController : MonoBehaviour
         }
         return p_Velocity;
     }
-   
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Parkour")
+        {
+
+
+        }
+    }
+
 }

@@ -11379,7 +11379,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portal: {fileID: 0}
+  portal_color: {fileID: 2100000, guid: db5b06d52709b4994898aa3360abb262, type: 2}
   portal_a: {fileID: 0}
+  portal_a_color: {fileID: 2100000, guid: 9aa0ea8e309794a048fbf42c3096f091, type: 2}
+  white: {fileID: 2100000, guid: ca4558258a4ac44a894f7b1491083cfb, type: 2}
 --- !u!114 &2101831108
 MonoBehaviour:
   m_ObjectHideFlags: 0

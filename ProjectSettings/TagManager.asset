@@ -7,6 +7,8 @@ TagManager:
   - Portal
   - Not-Portal
   - Grabbable
+  - Parkour
+  - OOB
   layers:
   - Default
   - TransparentFX
