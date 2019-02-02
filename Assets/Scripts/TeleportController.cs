@@ -9,6 +9,7 @@ public class TeleportController : MonoBehaviour
     public GameObject portal_a;
     public Material portal_a_color;
     public Material white;
+    public AudioClip clip;
     private float nextTimetoTeleport;
 
     // Start is called before the first frame update
@@ -19,8 +20,9 @@ public class TeleportController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
 
             RaycastHit hit;
@@ -28,15 +30,19 @@ public class TeleportController : MonoBehaviour
             {
                 if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
+                    AudioSource.PlayClipAtPoint(clip, new Vector3(0, 1, 0), 2f);
                     if (portal != null)
                     {
                         portal.GetComponent<Renderer>().material = white;
                         
+
                     }
 
                     portal = hit.collider.gameObject;
                 
                     portal.GetComponent<Renderer>().material = portal_color;
+                    
+                    
 
                 }
 
@@ -45,13 +51,14 @@ public class TeleportController : MonoBehaviour
             }
 
         }
-        else if (Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.gameObject.tag != "OOB")
             {
                 if (hit.collider.tag != "Not-Portal" && hit.collider.tag != "Grabbable")
                 {
+                    AudioSource.PlayClipAtPoint(clip, new Vector3(0, 1, 0), 2f);
                     if (portal_a!= null)
                     {
                         portal_a.GetComponent<Renderer>().material = white;
@@ -60,6 +67,7 @@ public class TeleportController : MonoBehaviour
                     portal_a = hit.collider.gameObject;
             
                     portal_a.GetComponent<Renderer>().material = portal_a_color;
+                    AudioSource.PlayClipAtPoint(clip, new Vector3(0, 1, 0), 2f);
                 }
 
             }
